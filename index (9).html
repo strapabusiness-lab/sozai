@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sozai+</title>
+<style>
+:root{--bg:#151419;--panel:#1d1c22;--panel2:#19181d;--line:#35323d;--text:#eeeaf2;--muted:#918b99;--purple:#9b6bd3;--purple2:#b58ce5;--red:#ff5d73;--gold:#d6ad28}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% 10%,#27212e 0,#151419 35%);color:var(--text);font:14px ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+button,input{font:inherit}button{cursor:pointer}.wrap{padding:18px;max-width:1600px;margin:auto}.top{display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center;margin-bottom:14px}.brand{font-size:23px;font-weight:900}.brand span{color:#b999e4}.nav{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#1b1a20}.nav button{background:none;border:0;color:#aaa3b0;padding:12px 18px}.nav button.active{background:#30273a;color:white;box-shadow:inset 0 0 0 1px #865daf}.userbar{display:flex;gap:8px}.pill{padding:11px 13px;border:1px solid var(--line);border-radius:9px;background:#1b1a20;color:#bdb6c4}.connection{display:grid;grid-template-columns:220px 1fr 130px 130px;gap:10px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);margin-bottom:12px}.connection strong{font-size:14px}.connection small{display:block;color:#77717d;margin-top:5px}.input,.field input{width:100%;background:#17161b;color:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;outline:none}.btn{border:1px solid var(--line);border-radius:8px;padding:12px 15px;background:#28262d;color:#e9e4ec;font-weight:900}.btn.primary{background:linear-gradient(#a77ad9,#8659b8);border-color:#9b70ca}.btn.danger{background:#302026;color:#ff8294}.layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(340px,.8fr);gap:12px}.left{display:grid;grid-template-columns:1.15fr .9fr;gap:12px}.card{background:linear-gradient(180deg,#1f1e24,#1b1a20);border:1px solid var(--line);border-radius:12px;padding:16px}.card h2{font-size:15px;margin:0 0 15px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{font-size:10px;color:#8c8693;display:block;margin-bottom:6px}.field label em{float:right;font-style:normal}.toggles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.togglebox{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);padding:11px;border-radius:9px;font-size:11px}.switch{width:42px;height:22px;background:#494650;border-radius:20px;padding:3px}.switch i{display:block;width:16px;height:16px;background:#aaa;border-radius:50%}.switch.on{background:#8d61bb}.switch.on i{margin-left:20px;background:#fff}.run{display:grid;gap:9px}.run .btn{min-height:45px}.manual{grid-column:1/-1}.manualgrid{display:grid;grid-template-columns:1fr 110px 110px;gap:9px}.quick{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px}.quick button{padding:10px 5px}.preview{background:#141318;border:1px solid #2d2a32;border-radius:10px;padding:12px}.previewbar{display:flex;justify-content:space-between;gap:8px}.mini{border:1px solid var(--line);padding:10px;border-radius:8px;flex:1;text-align:center;font-size:10px}.mini.red{color:#fff;background:#292027}.badge{background:var(--red);padding:6px 9px;border-radius:7px;font-weight:900}.clockbox{margin-top:9px;border:1px solid var(--line);border-radius:9px;text-align:center;padding:20px 8px}.clock{font-size:54px;font-weight:1000;letter-spacing:-3px}.clock.red{color:var(--red)}.state{color:#817a88;font-size:10px;margin-top:6px}.bidders{display:grid;gap:8px;margin-top:10px}.bidrow{display:grid;grid-template-columns:30px 38px 1fr auto;gap:9px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:9px}.medal{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:#36323b}.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#8d68c6,#443651);display:grid;place-items:center;font-weight:900}.name{font-size:11px;font-weight:900}.coins{color:#e6c94f;font-weight:900;font-size:11px}.total{text-align:center;border:1px solid var(--line);padding:10px;border-radius:8px;margin-top:8px;font-size:10px;color:#a8a1ad}.tabs{display:flex;gap:8px;margin-bottom:12px}.tab{padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:#201f25;color:#aaa3b0}.tab.active{background:#352a40;color:#fff;border-color:#8258ac}.hidden{display:none!important}.list{display:grid;gap:7px;margin-top:10px}.person{display:flex;align-items:center;gap:10px;border:1px solid var(--line);padding:9px;border-radius:8px}.person .grow{flex:1}.small{font-size:10px;color:var(--muted)}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.notice{font-size:10px;line-height:1.5;color:#918a98;padding:10px;border:1px solid var(--line);border-radius:8px;margin-top:10px}
+@media(max-width:1050px){.top{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.left{grid-template-columns:1fr}.manual{grid-column:auto}.connection{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.fields,.toggles,.manualgrid,.admin-grid{grid-template-columns:1fr}.quick{grid-template-columns:repeat(3,1fr)}.connection{grid-template-columns:1fr}.userbar{flex-wrap:wrap}.nav{overflow:auto}.bidrow{grid-template-columns:28px 36px 1fr}.coins{grid-column:3}}
+
+.auth-screen{position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 15%,#30233e 0,#151419 45%);display:grid;place-items:center;padding:20px}
+.auth-card{width:min(430px,100%);background:#1d1c22;border:1px solid #3b3744;border-radius:16px;padding:26px;box-shadow:0 18px 60px #0008}
+.auth-brand{text-align:center;font-size:30px;font-weight:1000;margin-bottom:6px}.auth-brand span{color:#b999e4}
+.auth-sub{text-align:center;color:#918b99;font-size:11px;margin-bottom:20px}.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:16px}.auth-tab{border:1px solid #35323d;background:#242229;color:#aaa3b0;padding:11px;border-radius:8px;font-weight:900}.auth-tab.active{background:#352a40;color:white;border-color:#865daf}.auth-form{display:grid;gap:10px}.auth-form label{font-size:10px;color:#8c8693}.auth-form input{width:100%;background:#17161b;color:#fff;border:1px solid #35323d;border-radius:8px;padding:12px;outline:none}.auth-error{min-height:16px;color:#ff7185;font-size:10px}.auth-success{color:#79d49c;font-size:10px}.auth-note{font-size:9px;color:#77717d;line-height:1.5;margin-top:10px}
+
+.live-reference{background:#050505;border:2px solid #9a8200;border-radius:18px;padding:10px 9px 12px;box-shadow:0 0 0 1px #201b00,0 0 20px #000}
+.live-reference .ref-top{display:grid;gap:7px}.live-reference .ref-pill{height:49px;border:2px solid #08bda4;border-radius:13px;background:#030303;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:1000;font-size:18px;color:#08d0b5;text-shadow:0 0 8px #08d0b5}
+.live-reference .ref-pill.delay{border-color:#ff5b42;color:#eee;text-shadow:none}.live-reference .shield{color:#66a9ff}.live-reference .seconds{background:#ff5b68;color:#fff;border-radius:9px;padding:7px 12px;font-size:19px}
+.live-reference .ref-clock{margin-top:8px;border:2px solid #8f7600;border-radius:15px;overflow:hidden;background:#050505}.live-reference .ref-clock-title{min-height:76px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #594a00;color:#ff594e;font-size:25px;font-weight:1000;text-shadow:0 0 9px #ff594e}.live-reference .ref-clock-title.normal{color:#eee;text-shadow:none;font-size:52px}
+.live-reference .ref-bidders{padding:9px 10px 0;display:grid;gap:8px}.live-reference .ref-bid{min-height:70px;border-radius:12px;border:1px solid #b38a00;background:linear-gradient(90deg,#5a4308,#624a0b);display:grid;grid-template-columns:32px 44px 1fr;gap:8px;align-items:center;padding:7px 10px}
+.live-reference .ref-bid:nth-child(2){background:linear-gradient(90deg,#383838,#414141);border-color:#7d7d7d}.live-reference .ref-bid:nth-child(3){background:linear-gradient(90deg,#543417,#68421c);border-color:#a66a1d}
+.live-reference .ref-rank{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:#efab4e;color:#fff;font-weight:900}.live-reference .ref-avatar{width:43px;height:43px;border-radius:50%;border:2px solid #7d68df;background:linear-gradient(135deg,#82b4ff,#7858ba);display:grid;place-items:center;color:#fff;font-weight:1000}
+.live-reference .ref-info{min-width:0}.live-reference .ref-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;font-weight:1000;color:#f2eeee}.live-reference .ref-coins{margin-top:3px;font-size:17px;font-weight:1000;color:#fff}.live-reference .ref-coins span{font-size:12px;color:#f5c54e}
+.live-reference .ref-total{margin:10px 10px 0;min-height:38px;border:1px solid #373737;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#ddd;font-size:10px;background:#050505}.live-reference .ref-total span{color:#8e4ec7;margin-right:5px}
+
+/* ---- Live board: single consolidated sizing/skin block (replaces 3 conflicting
+   override blocks; the old base rule set the delay title to font-size:0) ---- */
+.live-reference{
+  width:min(373px,100%);
+  min-height:601px;
+  margin:0 auto;
+  box-sizing:border-box;
+  padding:9px 7px 11px;
+  background:#000;
+  border:2px solid #9a8200;
+  border-radius:18px;
+  box-shadow:none;
+}
+.live-reference .ref-top{gap:6px;width:100%}
+.live-reference .ref-pill{
+  height:55px;border-radius:14px;background:#000;font-size:20px;letter-spacing:.1px;
+  border-color:#09c9ad;color:#0bd0b5;text-shadow:0 0 8px #0bd0b5;padding:0 8px;text-align:center;
+}
+.live-reference .ref-pill.delay{border-color:#ff5c48;color:#eee;text-shadow:none}
+.live-reference .ref-pill .seconds{background:#ff5c68;color:#fff;border-radius:9px;padding:8px 13px;font-size:21px}
+.live-reference .ref-clock{
+  margin-top:7px;border:2px solid #9a8200;border-radius:16px;background:#000;overflow:hidden;
+}
+.live-reference .ref-clock-title{
+  min-height:82px;display:flex;align-items:center;justify-content:center;gap:9px;
+  border-bottom:0;font-weight:1000;
+  font-size:50px;color:#10cdb3;text-shadow:0 0 12px #10cdb3;
+}
+.live-reference .ref-clock-title .clock-label{display:none;font-size:23px;color:#ff594e;text-shadow:0 0 9px #ff594e}
+.live-reference .ref-clock-title.delay{font-size:25px;color:#ff594e;text-shadow:0 0 9px #ff594e}
+.live-reference .ref-clock-title.delay .clock-label{display:inline}
+.live-reference .ref-clock-title.ended{color:#ff594e;text-shadow:0 0 9px #ff594e}
+.live-reference .ref-bidders{padding:18px 5px 0;gap:9px}
+.live-reference .ref-bid{
+  min-height:82px;border-radius:12px;
+  grid-template-columns:35px 49px 1fr;gap:8px;padding:7px 11px;
+}
+.live-reference .ref-bid.rank1{background:#5b4309;border-color:#b28a00}
+.live-reference .ref-bid.rank2{background:#3c3c3c;border-color:#858585}
+.live-reference .ref-bid.rank3{background:#5b391b;border-color:#a86b1f}
+.live-reference .ref-rank{width:28px;height:28px;background:#efa84b}
+.live-reference .ref-avatar{width:47px;height:47px;border-color:#7d68df}
+.live-reference .ref-name{font-size:15px}
+.live-reference .ref-coins{font-size:19px;margin-top:2px}
+.live-reference .ref-coins span{font-size:13px}
+.live-reference .ref-total{
+  margin:17px 5px 0;min-height:41px;border:1px solid #373737;background:#000;font-size:12px;
+}
+.live-reference .ref-bid.waiting{
+  display:grid;grid-template-columns:24px 43px 1fr auto;
+  background:#252529;border-color:#303036;min-height:70px;
+}
+.live-reference .ref-bid.waiting .wait-medal{color:#55555d;font-size:14px;text-align:center}
+.live-reference .ref-bid.waiting .ref-avatar{
+  width:40px;height:40px;border:1px solid #3b3b43;background:#252529;color:#8b8b92;font-size:16px
+}
+.live-reference .ref-bid.waiting .ref-name{color:#a6a6ad;font-size:13px}
+.live-reference .ref-bid.waiting .coin-count{color:#b8a25d;font-size:13px;white-space:nowrap}
+.live-reference .ref-clock-title.tie{color:var(--gold);text-shadow:0 0 9px #d6ad2888;font-size:25px}
+.live-reference .ref-clock-title.tie .clock-label{display:inline}
+.live-reference .ref-bid.tied{box-shadow:0 0 0 2px var(--gold) inset,0 0 14px #d6ad2877;animation:tiepulse 1s ease-in-out infinite}
+.live-reference .ref-bid.tied .ref-rank{background:var(--gold);color:#3a2f06}
+@keyframes tiepulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
+.tie-banner{margin:8px 5px 0;background:#3a2f06;border:1px solid var(--gold);color:var(--gold);border-radius:9px;padding:8px 10px;font-size:10px;line-height:1.5;text-align:center;animation:tieflash 1.2s ease-in-out infinite}
+@keyframes tieflash{0%,100%{opacity:1}50%{opacity:.6}}
+/* ---- Real profile pictures ---- */
+.ref-avatar,.avatar{overflow:hidden;position:relative}
+.ref-avatar img,.avatar img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
+.ref-avatar.loading::after,.avatar.loading::after{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(90deg,#ffffff00,#ffffff22,#ffffff00);animation:shimmer 1.1s linear infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.pfpwrap{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:11px;color:var(--muted)}
+.pfpwrap .avatar{width:42px;height:42px;flex:none}
+.pfpwrap b{color:var(--text)}
+.tierow{display:flex;align-items:center;gap:10px}
+.iconbtn{border:1px solid var(--line);background:#2a2830;color:#ff8294;border-radius:8px;padding:7px 10px;font-weight:900}
+</style>
+</head>
+<body>
+
+<div id="authScreen" class="auth-screen">
+  <div class="auth-card">
+    <div class="auth-brand">Sozai<span>+</span></div>
+    <div class="auth-sub">Create an account to save your auction settings and data.</div>
+    <div class="auth-tabs">
+      <button type="button" class="auth-tab active" id="loginTab">LOG IN</button>
+      <button type="button" class="auth-tab" id="signupTab">CREATE ACCOUNT</button>
+    </div>
+    <form class="auth-form" id="authForm">
+      <div><label for="accountUser">USERNAME</label><input id="accountUser" maxlength="24" autocomplete="username" placeholder="Choose a username"></div>
+      <div><label for="accountPass">PASSWORD</label><input id="accountPass" type="password" minlength="6" autocomplete="current-password" placeholder="At least 6 characters"></div>
+      <div id="confirmWrap" class="hidden"><label for="accountConfirm">CONFIRM PASSWORD</label><input id="accountConfirm" type="password" minlength="6" autocomplete="new-password" placeholder="Enter password again"></div>
+      <div id="authMessage" class="auth-error" aria-live="polite"></div>
+      <button class="btn primary" id="authSubmit" type="submit">LOG IN</button>
+    </form>
+    <div class="auth-note">Usernames are checked against accounts saved on this device. A production version should use a secure server/database for real multi-user accounts and password hashing.</div>
+  </div>
+</div>
+
+<div class="wrap" id="appShell" style="display:none">
+  <header class="top">
+    <div class="brand">🔨 <span>Auction</span> Board</div>
+    <nav class="nav">
+      <button class="navbtn active" type="button" data-page="auction">Auction Board</button>
+      <button class="navbtn" type="button" data-page="admin">Admin Panel</button>
+      <button class="navbtn" type="button" data-page="settings">Settings</button>
+    </nav>
+    <div class="userbar"><div class="pill">♙ <span id="accountLabel">@guest</span></div><button class="pill" id="logout" type="button">LOG OUT</button><div class="pill" id="connectionStatus">DISCONNECTED</div><div class="pill">🔒 LOCK</div></div>
+  </header>
+
+  <main id="auctionPage">
+    <section class="connection">
+      <div><strong>♪ TikTok Connection</strong><small id="savedText">TikTok username required</small></div>
+      <input id="tiktokUser" class="input" placeholder="@your_tiktok_username" autocomplete="off">
+      <button class="btn primary" type="button" id="connect">CONNECT</button>
+      <button class="btn" type="button" id="disconnect">DISCONNECT</button>
+    </section>
+
+    <div class="layout">
+      <div class="left">
+        <section class="card">
+          <h2>⚙ Auction Setup</h2>
+          <div class="fields">
+            <div class="field"><label for="title">AUCTION TITLE</label><input id="title" value="LIVE AUCTION"></div>
+            <div class="field"><label for="duration">COUNTDOWN <em>SEC</em></label><input id="duration" type="number" min="1" max="3600" value="60"></div>
+            <div class="field"><label for="minimum">MINIMUM GIFT <em>COINS</em></label><input id="minimum" type="number" min="0" value="0"></div>
+            <div class="field"><label for="snipe">SNIPE DELAY <em>SEC</em></label><input id="snipe" type="number" min="1" max="600" value="25"></div>
+            <div class="field"><label for="vouches">VOUCHES <em>COUNT</em></label><input id="vouches" type="number" min="0" value="0"></div>
+          </div>
+          <div class="toggles">
+            <div class="togglebox">✓ NO MINIMUM <span class="switch on" id="noMinSwitch" data-toggle role="switch" tabindex="0" aria-checked="true"><i></i></span></div>
+            <div class="togglebox">⇄ AUTO TIE <span class="switch" id="autoTieSwitch" data-toggle role="switch" tabindex="0" aria-checked="false"><i></i></span></div>
+          </div>
+          <div class="notice">AUTO TIE: if two of the top 3 bidders land on the exact same coin total, the countdown freezes and both are highlighted on the live board. It resumes — with a snipe-delay bonus — as soon as a new bid breaks the tie, or you press START.</div>
+        </section>
+
+        <section class="card">
+          <h2>▶ Run Auction</h2>
+          <div class="run">
+            <button class="btn primary" type="button" id="start">▶ START AUCTION</button>
+            <button class="btn" type="button" id="pause">Ⅱ PAUSE</button>
+            <button class="btn danger" type="button" id="end">■ END AUCTION</button>
+            <button class="btn" type="button" id="reset">↻ RESET</button>
+          </div>
+          <div class="notice">When the main countdown reaches 0, the timer changes to the red SNIPE DELAY state. Any new bid during the delay resets the delay to the configured amount. PAUSE keeps the remaining time; RESET clears the bidder list.</div>
+        </section>
+
+        <section class="card manual">
+          <h2>♙ Manual Bidder</h2>
+          <div class="manualgrid">
+            <input id="bidder" class="input" placeholder="@ search username">
+            <input id="amount" class="input" type="number" min="1" value="25">
+            <button class="btn primary" type="button" id="addBid">+ ADD</button>
+          </div>
+          <div class="quick">
+            <button class="btn bidadd" type="button" data-add="1">+1</button><button class="btn bidadd" type="button" data-add="10">+10</button><button class="btn bidadd" type="button" data-add="50">+50</button><button class="btn bidadd" type="button" data-add="100">+100</button><button class="btn bidadd" type="button" data-add="500">+500</button><button class="btn bidadd" type="button" data-add="1000">+1K</button>
+          </div>
+          <div class="pfpwrap"><div class="avatar" id="pfpPreview">?</div><div id="pfpStatus">Type a username to look up their TikTok profile picture.</div></div>
+          <div class="notice" id="profileNotice">Enter a TikTok username, then connect. Profile pictures are fetched from the public avatar endpoint set in Settings.</div>
+        </section>
+
+        <section class="card manual">
+          <h2>⇄ Auto Tie Participants</h2>
+          <div class="manualgrid">
+            <input id="tieUser" class="input" placeholder="@ TikTok username">
+            <input id="tieCoins" class="input" type="number" min="1" value="100">
+            <button class="btn primary" type="button" id="addTie">SEARCH + ADD</button>
+          </div>
+          <div class="quick">
+            <button class="btn tieadd" type="button" data-tieadd="1">+1</button><button class="btn tieadd" type="button" data-tieadd="10">+10</button><button class="btn tieadd" type="button" data-tieadd="50">+50</button><button class="btn tieadd" type="button" data-tieadd="100">+100</button><button class="btn tieadd" type="button" data-tieadd="500">+500</button><button class="btn tieadd" type="button" data-tieadd="1000">+1K</button>
+          </div>
+          <div class="notice">Adding someone here enters them on the live board with that coin total, same as a manual bid.</div>
+          <div class="list" id="ties"></div>
+        </section>
+      </div>
+
+      <aside class="card"><h2>▣ Live Board <span style="float:right;font-size:9px;color:#69636e">PREVIEW</span></h2>
+        <div class="live-reference">
+          <div class="ref-top">
+            <div class="ref-pill" id="minPill">☑ <span>NO MINIMUM</span></div>
+            <div class="ref-pill delay"><span class="shield">🛡</span><span>SNIPE DELAY</span><span class="seconds" id="delayBadge">25S</span></div>
+          </div>
+          <div class="ref-clock">
+            <div class="ref-clock-title" id="referenceClockTitle"><span class="clock-label">SNIPE DELAY</span><span id="referenceClock">1:00</span></div>
+          </div>
+          <div class="tie-banner hidden" id="tieBanner">⚖ TIE! Auction paused — the next distinguishing bid, or pressing <b>START</b>, resumes it with a +<span id="tieBonusSec">25</span>s bonus.</div>
+          <div class="ref-bidders" id="bidders"></div>
+          <div class="ref-total"><span>👥</span> Total participants: <b id="participants">0</b></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <main id="adminPage" class="hidden">
+    <section class="card">
+      <div class="tabs"><button class="tab active" type="button" data-tab="mod">Admin Panel</button><button class="tab" type="button" data-tab="bans">Banned Users</button></div>
+      <div class="admin-grid" id="tab-mod">
+        <div>
+          <h2>🛡 User Moderation</h2>
+          <input id="banUser" class="input" placeholder="@username to ban">
+          <button class="btn danger" type="button" style="margin-top:9px;width:100%" id="ban">BAN USER</button>
+        </div>
+        <div>
+          <h2>🔐 Admin Access</h2>
+          <input id="adminKey" class="input" type="password" placeholder="Admin key">
+          <button class="btn primary" type="button" style="margin-top:9px;width:100%" id="unlock">UNLOCK ADMIN</button>
+          <div class="notice">This demo stores moderation state only in this browser session. For a public site, ban enforcement must be moved to a server/database so users cannot bypass it.</div>
+        </div>
+      </div>
+      <div id="tab-bans" class="hidden">
+        <h2>🚫 Banned Users</h2>
+        <div class="list" id="bans"></div>
+        <div class="notice" id="bansEmpty">No banned users yet.</div>
+      </div>
+    </section>
+  </main>
+
+  <main id="settingsPage" class="hidden">
+    <section class="card">
+      <h2>⚙ Settings</h2>
+      <div class="fields">
+        <div class="field"><label for="defaultDuration">DEFAULT COUNTDOWN</label><input id="defaultDuration" type="number" min="1" max="3600" value="60"></div>
+        <div class="field"><label for="defaultSnipe">DEFAULT SNIPE DELAY</label><input id="defaultSnipe" type="number" min="1" max="600" value="25"></div>
+      </div>
+      <button class="btn" type="button" id="applyDefaults" style="margin-top:12px">APPLY DEFAULTS TO AUCTION</button>
+
+      <h2 style="margin-top:22px">🖼 Profile Pictures</h2>
+      <div class="toggles" style="margin-top:0">
+        <div class="togglebox">🖼 REAL TIKTOK PFPs <span class="switch on" id="pfpSwitch" data-toggle role="switch" tabindex="0" aria-checked="true"><i></i></span></div>
+        <div class="togglebox">CACHED <b id="pfpCount">0</b> <button class="btn" type="button" id="clearPfp" style="padding:7px 10px">CLEAR</button></div>
+      </div>
+      <div class="field" style="margin-top:10px">
+        <label for="avatarEndpoint">AVATAR ENDPOINT <em>{username} is replaced</em></label>
+        <input id="avatarEndpoint" class="input" value="https://unavatar.io/tiktok/{username}?fallback=false">
+      </div>
+      <div class="notice">The default endpoint is unavatar.io, a free public avatar lookup that resolves a TikTok handle to that account's real picture. It is rate limited and it can't see private or non-existent accounts, so anything it can't resolve falls back to the coloured initial. Point this field at your own proxy (or an Apify/TikTok integration that returns an image) for higher limits — it just has to return an image for <code>{username}</code>.</div>
+      <div class="notice">TikTok live event ingestion still requires a supported TikTok integration/API on the deployed server. The auction engine itself works locally without one.</div>
+    </section>
+  </main>
+</div>
+
+<script>
+/* ---------- Accounts (local demo auth) ---------- */
+(function(){
+  const AUTH_KEY='sozai_plus_accounts_v1';
+  const SESSION_KEY='sozai_plus_session_v1';
+  const getAccounts=()=>{try{return JSON.parse(localStorage.getItem(AUTH_KEY)||'{}')}catch(_){return {}}};
+  const saveAccounts=a=>localStorage.setItem(AUTH_KEY,JSON.stringify(a));
+  const authScreen=document.getElementById('authScreen'), appShell=document.getElementById('appShell');
+  const loginTab=document.getElementById('loginTab'), signupTab=document.getElementById('signupTab');
+  const confirmWrap=document.getElementById('confirmWrap'), submit=document.getElementById('authSubmit'), msg=document.getElementById('authMessage');
+  let signup=false;
+
+  function setMode(v){
+    signup=v;
+    loginTab.classList.toggle('active',!v);
+    signupTab.classList.toggle('active',v);
+    confirmWrap.classList.toggle('hidden',!v);
+    document.getElementById('accountPass').setAttribute('autocomplete',v?'new-password':'current-password');
+    submit.textContent=v?'CREATE ACCOUNT':'LOG IN';
+    msg.className='auth-error';
+    msg.textContent='';
+  }
+  loginTab.onclick=()=>setMode(false);
+  signupTab.onclick=()=>setMode(true);
+
+  function enter(user){
+    localStorage.setItem(SESSION_KEY,user);
+    document.getElementById('accountLabel').textContent='@'+user;
+    document.getElementById('accountPass').value='';
+    document.getElementById('accountConfirm').value='';
+    authScreen.style.display='none';
+    appShell.style.display='';
+    document.dispatchEvent(new CustomEvent('sozai:login',{detail:{user}}));
+  }
+  function fail(t){msg.className='auth-error';msg.textContent=t;return false}
+
+  document.getElementById('authForm').onsubmit=e=>{
+    e.preventDefault();
+    const username=document.getElementById('accountUser').value.trim();
+    const pass=document.getElementById('accountPass').value;
+    const confirmPass=document.getElementById('accountConfirm').value;
+    if(!/^[A-Za-z0-9_.-]{3,24}$/.test(username)) return fail('Username must be 3-24 characters using letters, numbers, _, . or -.');
+    const accounts=getAccounts();
+    const key=username.toLowerCase();
+    if(signup){
+      if(accounts[key]) return fail('That username is already taken. Choose another one.');
+      if(pass.length<6) return fail('Password must be at least 6 characters.');
+      if(pass!==confirmPass) return fail('Passwords do not match.');
+      accounts[key]={username,password:pass,createdAt:Date.now()};
+      saveAccounts(accounts);
+      msg.className='auth-success';
+      msg.textContent='Account created. Logging you in...';
+      setTimeout(()=>enter(username),250);
+    }else{
+      const acc=accounts[key];
+      if(!acc || acc.password!==pass) return fail('Incorrect username or password.');
+      enter(acc.username);
+    }
+  };
+  document.getElementById('logout').onclick=()=>{
+    localStorage.removeItem(SESSION_KEY);
+    location.reload();
+  };
+
+  const existing=localStorage.getItem(SESSION_KEY);
+  const found=existing?getAccounts()[existing.toLowerCase()]:null;
+  if(found) enter(found.username);
+})();
+</script>
+
+<script>
+/* ---------- Auction engine ---------- */
+(()=>{
+const $=id=>document.getElementById(id);
+
+let timer=null;
+let mode='ready';          // ready | running | delay | paused | tie | ended
+let pausedFrom='running';  // mode to return to after PAUSE
+let pausedMs=0;
+let tieFrom='running';     // mode to return to after a tie is resolved
+let tieMs=0;
+let tieAmount=null;        // the coin amount that is currently tied
+let deadline=0;
+let remaining=60, delayLeft=25;
+let bids=[], ties=[], bans=[], connected=false;
+
+/* Read a numeric input without rewriting the field on every render. */
+function readNum(el,f,min,max){
+  if(!el) return f;
+  let n=Number(el.value);
+  if(!Number.isFinite(n)) n=f;
+  return Math.max(min,Math.min(max,n));
+}
+/* Read and clamp the field (used on explicit user actions only). */
+function num(el,f,min,max){
+  const n=readNum(el,f,min,max);
+  if(el) el.value=n;
+  return n;
+}
+const durationVal=()=>num($('duration'),60,1,3600);
+const snipeVal=()=>num($('snipe'),25,1,600);
+const minimumVal=()=>num($('minimum'),0,0,1e9);
+const noMinimum=()=>$('noMinSwitch').classList.contains('on');
+const autoTie=()=>$('autoTieSwitch').classList.contains('on');
+
+function fmt(s){
+  s=Math.max(0,Math.floor(s));
+  return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+}
+
+/* ---------- rendering ---------- */
+function renderClock(){
+  const clock=$('referenceClock');
+  const title=$('referenceClockTitle');
+  const shown=mode==='tie'?Math.ceil(tieMs/1000):(mode==='delay'?delayLeft:remaining);
+  if(clock) clock.textContent=fmt(shown);
+  if(title){
+    title.classList.toggle('delay',mode==='delay');
+    title.classList.toggle('tie',mode==='tie');
+    title.classList.toggle('ended',mode==='ended');
+    const label=title.querySelector('.clock-label');
+    if(label) label.textContent=mode==='tie'?'TIE — PAUSED':'SNIPE DELAY';
+  }
+  const badge=$('delayBadge');
+  if(badge) badge.textContent=readNum($('snipe'),25,1,600)+'S';
+  const pill=$('minPill');
+  if(pill){
+    const min=readNum($('minimum'),0,0,1e9);
+    pill.innerHTML=noMinimum()||min<=0
+      ? '☑ <span>NO MINIMUM</span>'
+      : '<span>MIN '+min.toLocaleString()+'</span> <span>🪙</span>';
+    pill.classList.toggle('delay',!noMinimum()&&min>0);
+  }
+  const banner=$('tieBanner');
+  if(banner) banner.classList.toggle('hidden',mode!=='tie');
+  const bonus=$('tieBonusSec');
+  if(bonus) bonus.textContent=snipeVal();
+  const startBtn=$('start');
+  if(startBtn){
+    startBtn.textContent = mode==='tie' ? '⚖ RESOLVE TIE (+'+readNum($('snipe'),25,1,600)+'S)'
+      : mode==='paused' ? '▶ RESUME AUCTION'
+      : '▶ START AUCTION';
+  }
+}
+/* ---------- real TikTok profile pictures ----------
+   A username is turned into an <img> by asking a public avatar endpoint for it.
+   Results (hit or miss) are cached in localStorage so the same handle is only
+   looked up once, and anything that can't be resolved falls back to the
+   coloured initial the board used before. */
+const PFP_KEY='sozai_plus_avatars_v1';
+const PFP_TTL=7*24*60*60*1000;
+let pfpCache={};
+try{pfpCache=JSON.parse(localStorage.getItem(PFP_KEY)||'{}')}catch(_){pfpCache={}}
+const pfpPending=new Map();
+
+const pfpOn=()=>$('pfpSwitch').classList.contains('on');
+function pfpEndpoints(){
+  const out=[];
+  const custom=($('avatarEndpoint').value||'').trim();
+  if(custom.includes('{username}')) out.push(custom);
+  if(!out.length) out.push('https://unavatar.io/tiktok/{username}?fallback=false');
+  return out;
+}
+function savePfpCache(){
+  try{localStorage.setItem(PFP_KEY,JSON.stringify(pfpCache))}catch(_){}
+  const c=$('pfpCount');
+  if(c) c.textContent=Object.values(pfpCache).filter(v=>v&&v.url).length;
+}
+function loadImage(url){
+  return new Promise(resolve=>{
+    let settled=false;
+    const done=v=>{if(!settled){settled=true;resolve(v)}};
+    const img=new Image();
+    img.referrerPolicy='no-referrer';
+    img.onload=()=>done(img.naturalWidth>1?url:null);
+    img.onerror=()=>done(null);
+    img.src=url;
+    setTimeout(()=>done(null),9000);   // don't hang the row forever
+  });
+}
+function cachedPfp(name){
+  const e=pfpCache[String(name).toLowerCase()];
+  if(!e) return undefined;                        // never looked up
+  if(Date.now()-e.ts>PFP_TTL) return undefined;   // stale, look again
+  return e.url||null;                             // null = looked up, no picture
+}
+function lookupPfp(name){
+  const key=String(name).toLowerCase();
+  if(!pfpOn()) return Promise.resolve(null);
+  const hit=cachedPfp(key);
+  if(hit!==undefined) return Promise.resolve(hit);
+  if(pfpPending.has(key)) return pfpPending.get(key);
+  const urls=pfpEndpoints().map(t=>t.replace(/\{username\}/g,encodeURIComponent(key)));
+  const job=(async()=>{
+    let found=null;
+    for(const u of urls){
+      found=await loadImage(u);
+      if(found) break;
+    }
+    pfpCache[key]={url:found,ts:Date.now()};
+    savePfpCache();
+    pfpPending.delete(key);
+    return found;
+  })();
+  pfpPending.set(key,job);
+  return job;
+}
+/* Markup for one avatar slot; resolves in the background and swaps itself in. */
+function avatarHTML(name,cls){
+  const key=String(name).toLowerCase();
+  const initial=esc(String(name)[0].toUpperCase());
+  if(!pfpOn()) return '<div class="'+cls+'" data-pfp="'+esc(key)+'">'+initial+'</div>';
+  const url=cachedPfp(key);
+  if(url) return '<div class="'+cls+'" data-pfp="'+esc(key)+'"><img src="'+esc(url)+'" alt="@'+esc(name)+'" referrerpolicy="no-referrer"></div>';
+  const pending=url===undefined&&pfpOn();
+  if(pending) queuePfp(key);
+  return '<div class="'+cls+(pending?' loading':'')+'" data-pfp="'+esc(key)+'">'+initial+'</div>';
+}
+let pfpQueue=new Set(), pfpTimer=null;
+function queuePfp(key){
+  pfpQueue.add(key);
+  if(pfpTimer) return;
+  pfpTimer=setTimeout(async()=>{
+    const names=[...pfpQueue];
+    pfpQueue.clear();
+    pfpTimer=null;
+    await Promise.all(names.map(lookupPfp));
+    renderBids();
+    renderTies();
+  },60);
+}
+/* Live preview while typing a bidder name. */
+let previewTimer=null;
+function previewPfp(){
+  const name=($('bidder').value||'').trim().replace(/^@/,'');
+  const box=$('pfpPreview'), status=$('pfpStatus');
+  clearTimeout(previewTimer);
+  if(!name){
+    box.className='avatar'; box.textContent='?';
+    status.textContent='Type a username to look up their TikTok profile picture.';
+    return;
+  }
+  if(!pfpOn()){
+    box.className='avatar'; box.textContent=name[0].toUpperCase();
+    status.innerHTML='Profile picture lookup is off in Settings.';
+    return;
+  }
+  box.className='avatar loading'; box.textContent=name[0].toUpperCase();
+  status.textContent='Looking up @'+name+'…';
+  previewTimer=setTimeout(async()=>{
+    const url=await lookupPfp(name);
+    if(($('bidder').value||'').trim().replace(/^@/,'').toLowerCase()!==name.toLowerCase()) return;
+    box.className='avatar';
+    if(url){
+      box.innerHTML='<img src="'+esc(url)+'" alt="@'+esc(name)+'" referrerpolicy="no-referrer">';
+      status.innerHTML='Found <b>@'+esc(name)+'</b> — their picture will be used on the board.';
+    }else{
+      box.textContent=name[0].toUpperCase();
+      status.innerHTML='No public picture for <b>@'+esc(name)+'</b>. The coloured initial will be used.';
+    }
+  },450);
+}
+$('bidder').addEventListener('input',previewPfp);
+$('clearPfp').onclick=()=>{
+  pfpCache={};
+  savePfpCache();
+  render();
+  previewPfp();
+};
+
+function renderBids(){
+  const box=$('bidders');
+  if(!box) return;
+  box.innerHTML='';
+  const top=bids.slice(0,3);
+  for(let i=0;i<3;i++){
+    const b=top[i], d=document.createElement('div');
+    if(b){
+      const tied=mode==='tie' && tieAmount!==null && b.amount===tieAmount;
+      d.className='ref-bid rank'+(i+1)+(tied?' tied':'');
+      d.innerHTML='<div class="ref-rank">'+(tied?'⚖':(i+1))+'</div>'+
+        avatarHTML(b.name,'ref-avatar')+
+        '<div class="ref-info"><div class="ref-name">🎁 '+esc(b.name)+'</div>'+
+        '<div class="ref-coins">'+b.amount.toLocaleString()+' <span>🪙</span></div></div>';
+    }else{
+      d.className='ref-bid waiting';
+      d.innerHTML='<div class="wait-medal">♟</div><div class="ref-avatar">?</div>'+
+        '<div class="ref-info"><div class="ref-name">Waiting...</div></div><div class="coin-count">🪙 0</div>';
+    }
+    box.appendChild(d);
+  }
+  const participants=$('participants');
+  if(participants) participants.textContent=bids.length;
+}
+function renderTies(){
+  const box=$('ties');
+  if(!box) return;
+  box.innerHTML='';
+  ties.forEach((t,i)=>{
+    const d=document.createElement('div');
+    d.className='person tierow';
+    d.innerHTML=avatarHTML(t.name,'avatar')+
+      '<div class="grow"><b>@'+esc(t.name)+'</b><div class="small">'+esc(t.profile)+'</div></div>'+
+      '<b style="color:#e6c94f">🪙 '+t.coins.toLocaleString()+'</b>'+
+      '<button class="iconbtn" type="button" data-untie="'+i+'">REMOVE</button>';
+    box.appendChild(d);
+  });
+}
+function renderBans(){
+  const box=$('bans');
+  if(!box) return;
+  box.innerHTML='';
+  bans.forEach((u,i)=>{
+    const d=document.createElement('div');
+    d.className='person';
+    d.innerHTML='<div class="avatar">!</div><div class="grow"><b>@'+esc(u)+'</b>'+
+      '<div class="small">Banned from this browser\'s auction board</div></div>'+
+      '<button class="btn" type="button" data-unban="'+i+'">UNBAN</button>';
+    box.appendChild(d);
+  });
+  const empty=$('bansEmpty');
+  if(empty) empty.classList.toggle('hidden',bans.length>0);
+}
+function esc(s){
+  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function render(){
+  renderClock();
+  renderBids();
+  renderTies();
+  renderBans();
+}
+
+/* ---------- auto tie: freeze the clock when two shown bidders draw ---------- */
+function findTieAmount(){
+  const top=bids.slice(0,3);
+  for(let i=0;i<top.length-1;i++){
+    if(top[i] && top[i+1] && top[i].amount===top[i+1].amount) return top[i].amount;
+  }
+  return null;
+}
+function triggerTie(amount){
+  if(mode==='tie') return;
+  tieFrom=mode;
+  tieMs=Math.max(0,deadline-Date.now());
+  tieAmount=amount;
+  mode='tie';
+  stop();
+}
+function resolveTie(withBonus){
+  if(mode!=='tie') return;
+  const bonusMs=withBonus?snipeVal()*1000:0;
+  mode=tieFrom;
+  deadline=Date.now()+tieMs+bonusMs;
+  tieAmount=null;
+  run();
+}
+/* Called after every bid: starts a freeze if a new tie appeared, or lifts one
+   (with a bonus, since a real bid just broke it) if the tie is now resolved. */
+function checkAutoTie(){
+  if(mode==='tie'){
+    if(!autoTie()){resolveTie(false);return}
+    const amt=findTieAmount();
+    if(amt===null) resolveTie(true);
+    else tieAmount=amt;             // tie persists, possibly at a new amount
+    return;
+  }
+  if(!autoTie()) return;
+  if(mode!=='running'&&mode!=='delay') return;
+  const amt=findTieAmount();
+  if(amt!==null) triggerTie(amt);
+}
+
+/* ---------- timer (wall-clock based, so it stays accurate) ---------- */
+function stop(){
+  if(timer){clearInterval(timer);timer=null}
+}
+function run(){
+  stop();
+  if(mode!=='running'&&mode!=='delay') return;
+  timer=setInterval(tick,200);
+}
+function tick(){
+  const now=Date.now();
+  if(mode==='running'){
+    remaining=Math.max(0,Math.ceil((deadline-now)/1000));
+    if(now>=deadline){
+      remaining=0;
+      mode='delay';
+      delayLeft=snipeVal();
+      deadline=now+delayLeft*1000;
+    }
+  }else if(mode==='delay'){
+    delayLeft=Math.max(0,Math.ceil((deadline-now)/1000));
+    if(now>=deadline){
+      delayLeft=0;
+      mode='ended';
+      stop();
+    }
+  }else{
+    stop();
+  }
+  renderClock();
+}
+
+/* ---------- connection ---------- */
+function getTikTokUser(){
+  return ($('tiktokUser').value||'').trim().replace(/^@/,'');
+}
+function requireUser(){
+  const u=getTikTokUser();
+  if(!u){
+    alert('Enter your TikTok username first.');
+    $('tiktokUser').focus();
+    return null;
+  }
+  if(isBanned(u)){
+    alert('This TikTok user is banned from this auction board.');
+    return null;
+  }
+  return u;
+}
+function connectUser(){
+  const u=requireUser();
+  if(!u) return null;
+  connected=true;
+  $('connectionStatus').textContent='CONNECTED';
+  $('savedText').textContent='Connected as @'+u;
+  $('profileNotice').textContent='Connected as @'+u+'. You can now start auctions and add coins.';
+  return u;
+}
+const isBanned=n=>bans.some(x=>x.toLowerCase()===String(n).toLowerCase());
+
+$('connect').onclick=()=>{connectUser()};
+$('disconnect').onclick=()=>{
+  connected=false;
+  $('connectionStatus').textContent='DISCONNECTED';
+  $('savedText').textContent='TikTok username required';
+  $('profileNotice').textContent='Enter your TikTok username, then connect.';
+};
+
+/* ---------- controls ---------- */
+$('start').onclick=()=>{
+  if(!connected && !connectUser()) return;
+  const now=Date.now();
+  if(mode==='tie'){
+    resolveTie(true);              // manual resolve also gets the bonus time
+    renderClock();
+    return;
+  }else if(mode==='paused'){
+    mode=pausedFrom;
+    deadline=now+Math.max(0,pausedMs);
+  }else if(mode==='running'||mode==='delay'){
+    return;                       // already running
+  }else{
+    remaining=durationVal();
+    delayLeft=snipeVal();
+    mode='running';
+    deadline=now+remaining*1000;
+  }
+  run();
+  renderClock();
+};
+$('pause').onclick=()=>{
+  if(mode==='running'||mode==='delay'){
+    pausedFrom=mode;
+    pausedMs=Math.max(0,deadline-Date.now());
+    mode='paused';
+    stop();
+    renderClock();
+  }
+};
+$('end').onclick=()=>{
+  mode='ended';
+  remaining=0;
+  delayLeft=0;
+  tieAmount=null;
+  stop();
+  renderClock();
+};
+$('reset').onclick=()=>{
+  stop();
+  mode='ready';
+  pausedMs=0;
+  tieAmount=null;
+  bids=[];
+  remaining=durationVal();
+  delayLeft=snipeVal();
+  render();
+};
+$('duration').onchange=()=>{
+  const d=durationVal();
+  if(mode==='ready'||mode==='ended') remaining=d;
+  renderClock();
+};
+$('snipe').onchange=()=>{
+  const s=snipeVal();
+  if(mode!=='delay') delayLeft=s;
+  renderClock();
+};
+$('minimum').onchange=()=>{minimumVal();renderClock()};
+
+document.querySelectorAll('[data-toggle]').forEach(x=>{
+  const flip=()=>{
+    x.classList.toggle('on');
+    x.setAttribute('aria-checked',x.classList.contains('on')?'true':'false');
+    if(x.id==='autoTieSwitch') checkAutoTie();   // turning it off should release a frozen tie
+    render();
+    if(x.id==='pfpSwitch') previewPfp();
+  };
+  x.onclick=flip;
+  x.onkeydown=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();flip()}};
+});
+
+/* Quick-add buttons: bid amounts and tie coins are now separate. */
+document.querySelectorAll('[data-add]').forEach(x=>{
+  x.onclick=()=>{
+    const amount=$('amount');
+    amount.value=Math.max(1,(Number(amount.value)||0)+Number(x.dataset.add||0));
+    amount.dispatchEvent(new Event('change'));
+  };
+});
+document.querySelectorAll('[data-tieadd]').forEach(x=>{
+  x.onclick=()=>{
+    const c=$('tieCoins');
+    c.value=Math.max(1,(Number(c.value)||0)+Number(x.dataset.tieadd||0));
+    c.dispatchEvent(new Event('change'));
+  };
+});
+
+/* ---------- bids ---------- */
+function addBid(name,amount){
+  name=(name||'').replace(/^@/,'').trim();
+  amount=Math.max(1,Math.floor(Number(amount))||1);
+  if(!name){
+    alert('Enter a TikTok username for the bidder.');
+    $('bidder').focus();
+    return false;
+  }
+  if(isBanned(name)){
+    alert('That user is banned.');
+    return false;
+  }
+  if(mode==='ended'){
+    alert('This auction has ended. Press RESET or START to begin a new one.');
+    return false;
+  }
+  const min=minimumVal();
+  if(!noMinimum() && min>0 && amount<min){
+    alert('Minimum gift is '+min.toLocaleString()+' coins.');
+    return false;
+  }
+  const b=bids.find(x=>x.name.toLowerCase()===name.toLowerCase());
+  if(b) b.amount+=amount;
+  else bids.push({name,amount});
+  bids.sort((a,b)=>b.amount-a.amount);   // keep everyone; only the top 3 are shown
+  if(mode==='delay'){                     // a bid during the delay resets the delay
+    delayLeft=snipeVal();
+    deadline=Date.now()+delayLeft*1000;
+  }
+  checkAutoTie();                         // freeze on a new tie, or lift+bonus a resolved one
+  render();
+  return true;
+}
+$('addBid').onclick=()=>{
+  if(!connected && !connectUser()) return;
+  if(addBid($('bidder').value,$('amount').value)) $('bidder').value='';
+};
+$('bidder').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('addBid').click()}});
+
+/* ---------- auto tie participants ---------- */
+$('addTie').onclick=()=>{
+  const name=($('tieUser').value||'').trim().replace(/^@/,'');
+  const coins=Math.max(1,Math.floor(Number($('tieCoins').value))||1);
+  if(!name){alert('Enter a TikTok username.');return}
+  if(isBanned(name)){alert('That user is banned.');return}
+  const existing=ties.find(t=>t.name.toLowerCase()===name.toLowerCase());
+  if(existing) existing.coins+=coins;
+  else ties.push({name,coins,profile:'TikTok profile'});
+  $('tieUser').value='';
+  addBid(name,coins);          // always places them on the board with that coin total
+  render();
+};
+$('tieUser').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('addTie').click()}});
+$('ties').addEventListener('click',e=>{
+  const btn=e.target.closest('[data-untie]');
+  if(!btn) return;
+  ties.splice(Number(btn.dataset.untie),1);
+  renderTies();
+});
+
+/* ---------- moderation ---------- */
+$('ban').onclick=()=>{
+  const u=$('banUser').value.trim().replace(/^@/,'');
+  if(!u) return;
+  if(!isBanned(u)) bans.push(u);
+  bids=bids.filter(b=>!isBanned(b.name));       // remove a banned user from the board
+  ties=ties.filter(t=>!isBanned(t.name));
+  if(getTikTokUser().toLowerCase()===u.toLowerCase()) $('disconnect').click();
+  $('banUser').value='';
+  render();
+};
+$('bans').addEventListener('click',e=>{
+  const btn=e.target.closest('[data-unban]');
+  if(!btn) return;
+  bans.splice(Number(btn.dataset.unban),1);
+  renderBans();
+});
+$('unlock').onclick=()=>{
+  if($('adminKey').value) alert('Admin panel unlocked for this demo. Use server-side authentication before public deployment.');
+  else alert('Enter the admin key.');
+};
+
+/* ---------- navigation ---------- */
+document.querySelectorAll('.navbtn').forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
+    ['auction','admin','settings'].forEach(p=>{
+      const page=$(p+'Page');
+      if(page) page.classList.toggle('hidden',p!==btn.dataset.page);
+    });
+  };
+});
+document.querySelectorAll('.tab[data-tab]').forEach(tab=>{
+  tab.onclick=()=>{
+    document.querySelectorAll('.tab[data-tab]').forEach(x=>x.classList.remove('active'));
+    tab.classList.add('active');
+    ['mod','bans'].forEach(t=>{
+      const pane=$('tab-'+t);
+      if(pane) pane.classList.toggle('hidden',t!==tab.dataset.tab);
+    });
+  };
+});
+$('applyDefaults').onclick=()=>{
+  $('duration').value=num($('defaultDuration'),60,1,3600);
+  $('snipe').value=num($('defaultSnipe'),25,1,600);
+  if(mode==='ready'||mode==='ended'){
+    remaining=durationVal();
+    delayLeft=snipeVal();
+  }
+  renderClock();
+  alert('Defaults applied to the auction setup.');
+};
+
+/* ---------- state bridge for the save/restore layer ---------- */
+window.SozaiBoard={
+  getState:()=>({bids,ties,bans,
+    toggles:{noMin:noMinimum(),autoTie:autoTie(),pfp:pfpOn()}}),
+  setState:s=>{
+    if(!s) return;
+    bids=Array.isArray(s.bids)?s.bids:[];
+    ties=Array.isArray(s.ties)?s.ties:[];
+    bans=Array.isArray(s.bans)?s.bans:[];
+    if(s.toggles){
+      $('noMinSwitch').classList.toggle('on',!!s.toggles.noMin);
+      $('autoTieSwitch').classList.toggle('on',!!s.toggles.autoTie);
+      if('pfp' in s.toggles) $('pfpSwitch').classList.toggle('on',!!s.toggles.pfp);
+    }
+  },
+  refresh:()=>{
+    if(mode==='ready'||mode==='ended'){
+      remaining=durationVal();
+      delayLeft=snipeVal();
+    }
+    render();
+  }
+};
+
+remaining=durationVal();
+delayLeft=snipeVal();
+savePfpCache();
+render();
+})();
+</script>
+
+<script>
+/* ---------- Per-account save / restore ---------- */
+(function(){
+  const stateKey=()=>{
+    const s=localStorage.getItem('sozai_plus_session_v1');
+    return s?'sozai_plus_data_'+s.toLowerCase():null;
+  };
+  const FIELDS=['title','duration','minimum','snipe','vouches','bidder','amount','tieUser','tieCoins','defaultDuration','defaultSnipe','avatarEndpoint'];
+  let ready=false;
+
+  function persist(){
+    const k=stateKey();
+    if(!k||!ready) return;
+    const data={fields:{}};
+    FIELDS.forEach(id=>{const el=document.getElementById(id);if(el)data.fields[id]=el.value});
+    if(window.SozaiBoard) data.board=window.SozaiBoard.getState();
+    try{localStorage.setItem(k,JSON.stringify(data))}catch(_){}
+  }
+  function restore(){
+    const k=stateKey();
+    if(!k) return;
+    try{
+      const d=JSON.parse(localStorage.getItem(k)||'{}');
+      const fields=d.fields||d;   // tolerate the older flat format
+      Object.entries(fields).forEach(([id,v])=>{
+        const el=document.getElementById(id);
+        if(el&&typeof v==='string') el.value=v;
+      });
+      if(window.SozaiBoard){
+        window.SozaiBoard.setState(d.board);
+        window.SozaiBoard.refresh();   // re-sync the clock with the restored values
+      }
+    }catch(_){}
+    ready=true;
+  }
+
+  document.addEventListener('sozai:login',restore);
+  window.addEventListener('load',()=>{
+    if(localStorage.getItem('sozai_plus_session_v1')) restore();
+    document.querySelectorAll('input').forEach(x=>x.addEventListener('change',persist));
+  });
+  window.addEventListener('beforeunload',persist);
+  setInterval(persist,1500);
+})();
+</script>
+</body>
+</html>
